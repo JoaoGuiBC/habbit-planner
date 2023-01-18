@@ -1,4 +1,4 @@
-import Fastify from "fastify"
+import Fastify from 'fastify'
 
 const app = Fastify()
 
@@ -7,5 +7,5 @@ app.get('/test', () => {
 })
 
 app.listen({
-  port: 3333
+  port: 3333,
 })
