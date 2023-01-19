@@ -1,5 +1,13 @@
+import { Habit } from './components/Habit'
+
 export function App() {
   return (
-    <h1>Hellow World</h1>
+    <div>
+      <Habit completed={10} />
+      <Habit completed={20} />
+      <Habit completed={30} />
+      <Habit completed={40} />
+      <Habit completed={50} />
+    </div>
   )
 }
