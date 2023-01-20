@@ -22,7 +22,14 @@ export default function App() {
   }
 
   return (
-    <View style={{ backgroundColor: '#09090A' }}>
+    <View
+      style={{
+        backgroundColor: '#09090A',
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+    >
       <Text style={{ color: '#FFFFFF', fontFamily: 'Inter_800ExtraBold' }}>
         Hello World
       </Text>
