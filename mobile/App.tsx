@@ -5,8 +5,9 @@ import {
   Inter_700Bold,
   Inter_800ExtraBold,
 } from '@expo-google-fonts/inter'
-import { Text, View, StatusBar } from 'react-native'
+import { StatusBar } from 'react-native'
 
+import { Home } from './src/screens/Home'
 import { Loading } from './src/components/Loading'
 
 export default function App() {
@@ -22,22 +23,13 @@ export default function App() {
   }
 
   return (
-    <View
-      style={{
-        backgroundColor: '#09090A',
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-      }}
-    >
-      <Text style={{ color: '#FFFFFF', fontFamily: 'Inter_800ExtraBold' }}>
-        Hello World
-      </Text>
+    <>
+      <Home />
       <StatusBar
         barStyle="light-content"
         translucent
         backgroundColor="transparent"
       />
-    </View>
+    </>
   )
 }
