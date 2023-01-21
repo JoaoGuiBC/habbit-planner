@@ -7,6 +7,7 @@ interface ButtonProps extends TouchableOpacityProps {}
 export function Button({ children, ...rest }: ButtonProps) {
   return (
     <TouchableOpacity
+      activeOpacity={0.5}
       className="flex-row h-11 px-4 border border-violet-500 rounded-lg items-center"
       {...rest}
     >
