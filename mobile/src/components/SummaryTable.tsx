@@ -1,4 +1,5 @@
 import { ScrollView, Text, View } from 'react-native'
+import { useNavigation } from '@react-navigation/native'
 
 import { DayHabit, daySize } from './DayHabit'
 import { generateRangeBetweenDates } from '../utils/generate-range-between-dates'
@@ -7,6 +8,12 @@ const weekDays = ['D', 'S', 'T', 'Q', 'Q', 'S', 'S']
 const summaryDates = generateRangeBetweenDates()
 
 export function SummaryTable() {
+  const { navigate } = useNavigation()
+
+  function handleGoToHabit(date: string) {
+    navigate('habit', { date })
+  }
+
   return (
     <>
       <View className="flex-row mt-6 mb-2">
@@ -25,7 +32,12 @@ export function SummaryTable() {
       <ScrollView contentContainerStyle={{ paddingBottom: 100 }}>
         <View className="flex-row flex-wrap">
           {summaryDates.map((date) => {
-            return <DayHabit key={date.toString()} />
+            return (
+              <DayHabit
+                key={date.toString()}
+                onPress={() => handleGoToHabit(date.toISOString())}
+              />
+            )
           })}
         </View>
       </ScrollView>
