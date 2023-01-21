@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Habbit Planner",
-    "slug": "habbit-planner-mobile",
+    "name": "Habit Planner",
+    "slug": "habit-planner-mobile",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
