@@ -50,7 +50,7 @@ export function Dialog({ children }: DialogProps) {
               Qual a recorrência?
             </label>
 
-            <Button styleType="secondary" />
+            <Button styleType="secondary" title="Confirmar" />
           </form>
         </Content>
       </Portal>

@@ -3,10 +3,11 @@ import { Check, Plus } from 'phosphor-react'
 import { ButtonHTMLAttributes } from 'react'
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  title: string
   styleType?: 'primary' | 'secondary'
 }
 
-export function Button({ styleType = 'primary', ...rest }: ButtonProps) {
+export function Button({ title, styleType = 'primary', ...rest }: ButtonProps) {
   return (
     <button
       className={clsx(
@@ -24,7 +25,7 @@ export function Button({ styleType = 'primary', ...rest }: ButtonProps) {
       ) : (
         <Check size={20} weight="bold" />
       )}
-      Novo hábito
+      {title}
     </button>
   )
 }
