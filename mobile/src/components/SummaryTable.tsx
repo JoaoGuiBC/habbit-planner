@@ -1,17 +1,54 @@
-import { ScrollView, Text, View } from 'react-native'
+import dayjs from 'dayjs'
+import { useEffect, useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
+import { Alert, ScrollView, Text, View } from 'react-native'
 
-import { DayHabit, daySize } from './DayHabit'
+import { api } from '../lib/axios'
 import { generateRangeBetweenDates } from '../utils/generate-range-between-dates'
+
+import { Loading } from './Loading'
+import { DayHabit, daySize } from './DayHabit'
 
 const weekDays = ['D', 'S', 'T', 'Q', 'Q', 'S', 'S']
 const summaryDates = generateRangeBetweenDates()
 
+interface SummaryResponse {
+  id: string
+  date: string
+  completed: number
+  amount: number
+}
+
 export function SummaryTable() {
+  const [isLoading, setIsLoading] = useState(true)
+  const [summary, setSummary] = useState<SummaryResponse[]>([])
+
   const { navigate } = useNavigation()
 
   function handleGoToHabit(date: string) {
     navigate('habit', { date })
+  }
+
+  async function getSummary() {
+    try {
+      setIsLoading(true)
+
+      const { data } = await api.get<SummaryResponse[]>('/summary')
+      setSummary(data)
+    } catch (error: any) {
+      console.log(error.message)
+      Alert.alert('Ops!', 'Não foi possivel carregar o sumário.')
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  useEffect(() => {
+    getSummary()
+  }, [])
+
+  if (isLoading) {
+    return <Loading />
   }
 
   return (
@@ -29,12 +66,20 @@ export function SummaryTable() {
           )
         })}
       </View>
+
       <ScrollView contentContainerStyle={{ paddingBottom: 100 }}>
         <View className="flex-row flex-wrap">
           {summaryDates.map((date) => {
+            const dayInSummary = summary.find((day) => {
+              return dayjs(date).isSame(day.date, 'day')
+            })
+
             return (
               <DayHabit
                 key={date.toString()}
+                date={date}
+                amount={dayInSummary?.amount}
+                completed={dayInSummary?.completed}
                 onPress={() => handleGoToHabit(date.toISOString())}
               />
             )

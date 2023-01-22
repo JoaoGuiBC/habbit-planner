@@ -7,6 +7,8 @@ import {
 } from '@expo-google-fonts/inter'
 import { StatusBar } from 'react-native'
 
+import './src/lib/dayjs'
+
 import { Routes } from './src/routes'
 import { Loading } from './src/components/Loading'
 
