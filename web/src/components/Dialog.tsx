@@ -7,16 +7,67 @@ import {
   Close,
   Title,
 } from '@radix-ui/react-dialog'
-import { ReactNode } from 'react'
 import { X } from 'phosphor-react'
+import { FormEvent, ReactNode, useState } from 'react'
+import { api } from '../lib/axios'
 
 import { Button } from './Button'
+import { Checkbox } from './Checkbox'
 
 interface DialogProps {
   children: ReactNode
 }
 
+const weekDays = [
+  'Domingo',
+  'Segunda-feira',
+  'Terça-feira',
+  'Quarta-feira',
+  'Quinta-feira',
+  'Sexta-feira',
+  'Sábado',
+]
+
+async function createNewHabit(title: string, selectedWeekDays: number[]) {
+  await api.post('habits', {
+    title,
+    weekDays: selectedWeekDays,
+  })
+}
+
 export function Dialog({ children }: DialogProps) {
+  const [title, setTitle] = useState('')
+  const [selectedWeekDays, setSelectedWeekDays] = useState<number[]>([])
+
+  async function handleCreateNewHabit(event: FormEvent) {
+    event.preventDefault()
+
+    if (!title || selectedWeekDays.length === 0) {
+      return
+    }
+
+    await createNewHabit(title, selectedWeekDays)
+
+    setTitle('')
+    setSelectedWeekDays([])
+
+    alert('Hábito criado com sucesso!')
+  }
+
+  function handleToogleWeekDay(weekDay: number) {
+    if (selectedWeekDays.includes(weekDay)) {
+      const selectedWeekDaysWithRemovedOne = selectedWeekDays.filter(
+        (day) => day !== weekDay
+      )
+
+      setSelectedWeekDays(selectedWeekDaysWithRemovedOne)
+    } else {
+      const selectedWeekDaysWithAddedOne = [...selectedWeekDays, weekDay]
+
+      setSelectedWeekDays(selectedWeekDaysWithAddedOne)
+    }
+  }
+
   return (
     <Root>
       <Trigger>{children}</Trigger>
@@ -33,7 +84,10 @@ export function Dialog({ children }: DialogProps) {
             Criar hábito
           </Title>
 
-          <form className="w-full flex flex-col mt-6">
+          <form
+            className="w-full flex flex-col mt-6"
+            onSubmit={(event) => handleCreateNewHabit(event)}
+          >
             <label htmlFor="title" className="font-semibold leading-tight">
               Qual seu comprometimento?
             </label>
@@ -44,13 +98,27 @@ export function Dialog({ children }: DialogProps) {
               placeholder="ex.: exercícios, dormir bem, etc..."
               autoFocus
               className="p-4 rounded-lg mt-3 bg-zinc-800 text-white placeholder:text-zinc-400"
+              value={title}
+              onChange={(event) => setTitle(event.target.value)}
             />
 
             <label htmlFor="" className="font-semibold leading-tight mt-4">
               Qual a recorrência?
             </label>
 
-            <Button styleType="secondary" title="Confirmar" />
+            <div className="flex flex-col gap-2 mt-3">
+              {weekDays.map((weekDay, index) => (
+                <Checkbox
+                  key={weekDay}
+                  title={weekDay}
+                  styleType="secondary"
+                  checked={selectedWeekDays.includes(index)}
+                  onCheckedChange={() => handleToogleWeekDay(index)}
+                />
+              ))}
+            </div>
+
+            <Button type="submit" styleType="secondary" title="Confirmar" />
           </form>
         </Content>
       </Portal>

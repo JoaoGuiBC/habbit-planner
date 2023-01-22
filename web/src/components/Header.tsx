@@ -9,7 +9,7 @@ export function Header() {
       <img src={logoImage} alt="Logo do habit planner" />
 
       <Dialog>
-        <Button title="Novo hábito" />
+        <Button type="button" title="Novo hábito" />
       </Dialog>
     </div>
   )
