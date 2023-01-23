@@ -2,6 +2,7 @@ import colors from 'tailwindcss/colors'
 import { Check } from 'phosphor-react-native'
 import { TouchableProps } from 'react-native-svg'
 import { TouchableOpacity, View, Text } from 'react-native'
+import Animated, { ZoomIn, ZoomOut } from 'react-native-reanimated'
 
 interface CheckboxProps extends TouchableProps {
   title: string
@@ -16,9 +17,13 @@ export function Checkbox({ title, checked, ...rest }: CheckboxProps) {
       {...rest}
     >
       {checked ? (
-        <View className="h-8 w-8 bg-green-500 rounded-lg items-center justify-center">
+        <Animated.View
+          className="h-8 w-8 bg-green-500 rounded-lg items-center justify-center"
+          entering={ZoomIn}
+          exiting={ZoomOut}
+        >
           <Check size={20} color={colors.white} />
-        </View>
+        </Animated.View>
       ) : (
         <View className="h-8 w-8 bg-zinc-900 rounded-lg" />
       )}

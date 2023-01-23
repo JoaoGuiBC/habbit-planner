@@ -1,7 +1,7 @@
 import dayjs from 'dayjs'
-import { useEffect, useState } from 'react'
-import { useNavigation } from '@react-navigation/native'
+import { useState, useCallback } from 'react'
 import { Alert, ScrollView, Text, View } from 'react-native'
+import { useFocusEffect, useNavigation } from '@react-navigation/native'
 
 import { api } from '../lib/axios'
 import { generateRangeBetweenDates } from '../utils/generate-range-between-dates'
@@ -43,9 +43,11 @@ export function SummaryTable() {
     }
   }
 
-  useEffect(() => {
-    getSummary()
-  }, [])
+  useFocusEffect(
+    useCallback(() => {
+      getSummary()
+    }, [])
+  )
 
   if (isLoading) {
     return <Loading />
