@@ -76,7 +76,7 @@ export function Dialog({ children }: DialogProps) {
         <Overlay className="w-screen h-screen bg-black/80 fixed inset-0" />
 
         <Content className="absolute p-10 bg-zinc-900 rounded-2xl w-full max-w-md top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-          <Close className="absolute right-6 top-6 text-zinc-400 hover:text-zinc-200 transition-colors">
+          <Close className="absolute right-6 top-6 text-zinc-400 rounded-lg hover:text-zinc-200 transition-colors focus:outline-none focus:ring-2 focus:ring-violet-600 focus:ring-offset-2 focus:ring-offset-zinc-900">
             <X size={24} aria-label="Fechar" />
           </Close>
 
@@ -97,7 +97,7 @@ export function Dialog({ children }: DialogProps) {
               id="title"
               placeholder="ex.: exercícios, dormir bem, etc..."
               autoFocus
-              className="p-4 rounded-lg mt-3 bg-zinc-800 text-white placeholder:text-zinc-400"
+              className="p-4 rounded-lg mt-3 bg-zinc-800 text-white placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-violet-600 focus:ring-offset-2 focus:ring-offset-zinc-900"
               value={title}
               onChange={(event) => setTitle(event.target.value)}
             />
