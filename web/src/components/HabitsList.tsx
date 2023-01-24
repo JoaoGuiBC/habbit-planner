@@ -18,7 +18,7 @@ interface HabitsInfo {
 async function getHabits(date: Date) {
   const { data } = await api.get<HabitsInfo>('day', {
     params: {
-      date: date.toISOString,
+      date: date.toISOString(),
     },
   })
 

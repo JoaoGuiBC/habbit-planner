@@ -44,7 +44,7 @@ export function Habit() {
   async function getHabit() {
     try {
       const { data } = await api.get<HabitsInfo>('/day', {
-        data: { date },
+        params: { date },
       })
 
       setHabitsInfo(data)
